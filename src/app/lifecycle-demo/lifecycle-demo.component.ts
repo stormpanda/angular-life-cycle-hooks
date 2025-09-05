@@ -29,17 +29,6 @@ export class LifecycleDemoComponent implements OnChanges, OnInit, DoCheck, After
   counter = 0;
   intervalId?: ReturnType<typeof setInterval>;
 
-  getLogClass(entry: string): string {
-    const lower = entry.toLowerCase();
-    if (lower.includes('timer')) {
-      return 'log-timer';
-    }
-    if (lower.includes('destroy')) {
-      return 'log-destroy';
-    }
-    return 'log-lifecycle';
-  }
-
   log(message: string, data?: any) {
     this.logs.push(data ? `${message} ${JSON.stringify(data)}` : message);
     data !== undefined ? console.log(message, data) : console.log(message);
