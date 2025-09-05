@@ -1,4 +1,16 @@
-<p>lifecycle-demo works!</p>
-<input #val />
-<button (click)="inputValue = val.value">Update Input</button>
-<app-child [inputValue]="inputValue"></app-child>
+<div>
+  <h2>Lifecycle Demo</h2>
+  <input #val />
+  <button (click)="inputValue = val.value">Update Input</button>
+  <button (click)="startTimer()">Start Timer</button>
+  <button (click)="stopTimer()">Stop Timer</button>
+  <button (click)="toggleChild()">Toggle Child</button>
+  <p>Timer: {{ counter }}</p>
+
+  <app-child *ngIf="showChild" [inputValue]="inputValue"></app-child>
+
+  <h3>Logs</h3>
+  <ul>
+    <li *ngFor="let log of logs">{{ log }}</li>
+  </ul>
+</div>

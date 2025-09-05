@@ -1,1 +1,14 @@
-<p>child works! {{ inputValue }}</p>
+<div>
+  <h3>Child Component</h3>
+  <p>From parent: {{ inputValue }}</p>
+  <input #val />
+  <button (click)="childValue = val.value">Set Child Value</button>
+  <p>Child value: {{ childValue }}</p>
+  <button (click)="startTimer()">Start Timer</button>
+  <button (click)="stopTimer()">Stop Timer</button>
+  <p>Timer: {{ counter }}</p>
+  <h4>Logs</h4>
+  <ul>
+    <li *ngFor="let log of logs">{{ log }}</li>
+  </ul>
+</div>

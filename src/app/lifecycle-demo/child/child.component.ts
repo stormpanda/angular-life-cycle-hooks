@@ -11,46 +11,75 @@ import {
   AfterViewChecked,
   Input,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-child',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './child.component.html',
   styleUrl: './child.component.scss'
 })
-export class LifecycleChildComponent implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
+export class LifecycleChildComponent implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit,
+  AfterViewChecked, OnDestroy {
   @Input() inputValue = '';
+  logs: string[] = [];
+  childValue = '';
+  counter = 0;
+  intervalId?: ReturnType<typeof setInterval>;
+
+  log(message: string, data?: any) {
+    this.logs.push(data ? `${message} ${JSON.stringify(data)}` : message);
+    data !== undefined ? console.log(message, data) : console.log(message);
+  }
+
+  startTimer() {
+    if (!this.intervalId) {
+      this.intervalId = setInterval(() => {
+        this.counter++;
+        this.log(`Child timer tick ${this.counter}`);
+      }, 1000);
+    }
+  }
+
+  stopTimer() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+      this.intervalId = undefined;
+      this.log('Child timer stopped');
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('LifecycleChildComponent ngOnChanges', changes);
+    this.log('LifecycleChildComponent ngOnChanges', changes);
   }
 
   ngOnInit(): void {
-    console.log('LifecycleChildComponent ngOnInit');
+    this.log('LifecycleChildComponent ngOnInit');
   }
 
   ngDoCheck(): void {
-    console.log('LifecycleChildComponent ngDoCheck', this.inputValue);
+    this.log('LifecycleChildComponent ngDoCheck', this.inputValue);
   }
 
   ngAfterContentInit(): void {
-    console.log('LifecycleChildComponent ngAfterContentInit');
+    this.log('LifecycleChildComponent ngAfterContentInit');
   }
 
   ngAfterContentChecked(): void {
-    console.log('LifecycleChildComponent ngAfterContentChecked');
+    this.log('LifecycleChildComponent ngAfterContentChecked');
   }
 
   ngAfterViewInit(): void {
-    console.log('LifecycleChildComponent ngAfterViewInit');
+    this.log('LifecycleChildComponent ngAfterViewInit');
   }
 
   ngAfterViewChecked(): void {
-    console.log('LifecycleChildComponent ngAfterViewChecked');
+    this.log('LifecycleChildComponent ngAfterViewChecked');
   }
 
   ngOnDestroy(): void {
-    console.log('LifecycleChildComponent ngOnDestroy');
+    this.log('LifecycleChildComponent ngOnDestroy');
+    this.stopTimer();
   }
 }
