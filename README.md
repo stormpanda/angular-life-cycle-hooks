@@ -2,6 +2,38 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.4.
 
+## Lifecycle Hooks Demo
+
+This project includes a `LifecycleDemoComponent` and a nested `LifecycleChildComponent` that showcase Angular's lifecycle hooks:
+
+- **OnChanges** – triggered when Angular sets or resets data-bound `@Input()` properties.
+- **OnInit** – runs once after the first `ngOnChanges` and initializes component logic.
+- **DoCheck** – allows custom change detection during every change detection cycle.
+- **AfterContentInit** – fires after Angular projects external content into the component.
+- **AfterContentChecked** – runs after Angular checks projected content.
+- **AfterViewInit** – called after Angular initializes the component's views and child views.
+- **AfterViewChecked** – executes after Angular checks the component's views and child views.
+- **OnDestroy** – invoked just before Angular destroys the component.
+
+### Running the demo
+
+1. Start the development server:
+
+   ```bash
+   ng serve
+   ```
+
+2. Navigate to [http://localhost:4200/lifecycle-demo](http://localhost:4200/lifecycle-demo) and open the browser's developer console to view lifecycle hook logs.
+
+### Example console output
+
+```text
+LifecycleDemoComponent ngOnInit
+LifecycleChildComponent ngOnInit
+LifecycleDemoComponent ngAfterViewInit
+LifecycleChildComponent ngAfterViewInit
+```
+
 ## Development server
 
 To start a local development server, run:
