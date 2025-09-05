@@ -1,4 +1,16 @@
-import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  OnChanges,
+  SimpleChanges,
+  DoCheck,
+  AfterContentInit,
+  AfterContentChecked,
+  AfterViewInit,
+  AfterViewChecked,
+  Input,
+} from '@angular/core';
 import { LifecycleChildComponent } from './child/child.component';
 
 @Component({
@@ -8,7 +20,10 @@ import { LifecycleChildComponent } from './child/child.component';
   templateUrl: './lifecycle-demo.component.html',
   styleUrl: './lifecycle-demo.component.scss'
 })
-export class LifecycleDemoComponent implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
+export class LifecycleDemoComponent implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit,
+  AfterViewChecked, OnDestroy {
+  @Input() inputValue = '';
+
   ngOnChanges(changes: SimpleChanges): void {
     console.log('LifecycleDemoComponent ngOnChanges', changes);
   }
@@ -18,7 +33,7 @@ export class LifecycleDemoComponent implements OnChanges, OnInit, DoCheck, After
   }
 
   ngDoCheck(): void {
-    console.log('LifecycleDemoComponent ngDoCheck');
+    console.log('LifecycleDemoComponent ngDoCheck', this.inputValue);
   }
 
   ngAfterContentInit(): void {
