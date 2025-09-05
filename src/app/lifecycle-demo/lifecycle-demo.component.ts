@@ -11,48 +11,80 @@ import {
   AfterViewChecked,
   Input,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { LifecycleChildComponent } from './child/child.component';
 
 @Component({
   selector: 'app-lifecycle-demo',
   standalone: true,
-  imports: [LifecycleChildComponent],
+  imports: [CommonModule, LifecycleChildComponent],
   templateUrl: './lifecycle-demo.component.html',
   styleUrl: './lifecycle-demo.component.scss'
 })
 export class LifecycleDemoComponent implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit,
   AfterViewChecked, OnDestroy {
   @Input() inputValue = '';
+  logs: string[] = [];
+  showChild = true;
+  counter = 0;
+  intervalId?: ReturnType<typeof setInterval>;
+
+  log(message: string, data?: any) {
+    this.logs.push(data ? `${message} ${JSON.stringify(data)}` : message);
+    data !== undefined ? console.log(message, data) : console.log(message);
+  }
+
+  startTimer() {
+    if (!this.intervalId) {
+      this.intervalId = setInterval(() => {
+        this.counter++;
+        this.log(`Timer tick ${this.counter}`);
+      }, 1000);
+    }
+  }
+
+  stopTimer() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+      this.intervalId = undefined;
+      this.log('Timer stopped');
+    }
+  }
+
+  toggleChild() {
+    this.showChild = !this.showChild;
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('LifecycleDemoComponent ngOnChanges', changes);
+    this.log('LifecycleDemoComponent ngOnChanges', changes);
   }
 
   ngOnInit(): void {
-    console.log('LifecycleDemoComponent ngOnInit');
+    this.log('LifecycleDemoComponent ngOnInit');
   }
 
   ngDoCheck(): void {
-    console.log('LifecycleDemoComponent ngDoCheck', this.inputValue);
+    this.log('LifecycleDemoComponent ngDoCheck', this.inputValue);
   }
 
   ngAfterContentInit(): void {
-    console.log('LifecycleDemoComponent ngAfterContentInit');
+    this.log('LifecycleDemoComponent ngAfterContentInit');
   }
 
   ngAfterContentChecked(): void {
-    console.log('LifecycleDemoComponent ngAfterContentChecked');
+    this.log('LifecycleDemoComponent ngAfterContentChecked');
   }
 
   ngAfterViewInit(): void {
-    console.log('LifecycleDemoComponent ngAfterViewInit');
+    this.log('LifecycleDemoComponent ngAfterViewInit');
   }
 
   ngAfterViewChecked(): void {
-    console.log('LifecycleDemoComponent ngAfterViewChecked');
+    this.log('LifecycleDemoComponent ngAfterViewChecked');
   }
 
   ngOnDestroy(): void {
-    console.log('LifecycleDemoComponent ngOnDestroy');
+    this.log('LifecycleDemoComponent ngOnDestroy');
+    this.stopTimer();
   }
 }
