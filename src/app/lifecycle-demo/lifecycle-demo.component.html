@@ -10,9 +10,4 @@
   <p>Timer: {{ counter }}</p>
 
   <app-child *ngIf="showChild" [inputValue]="inputValue"></app-child>
-
-  <h3>Logs</h3>
-  <ul class="logs">
-    <li *ngFor="let log of logs" [ngClass]="getLogClass(log)">{{ log }}</li>
-  </ul>
 </div>
