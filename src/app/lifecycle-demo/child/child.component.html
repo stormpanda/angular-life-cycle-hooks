@@ -1,14 +1,16 @@
-<div>
+<div class="card child-container">
   <h3>Child Component</h3>
   <p>From parent: {{ inputValue }}</p>
-  <input #val />
-  <button (click)="childValue = val.value">Set Child Value</button>
+  <div class="controls">
+    <input #val />
+    <button (click)="childValue = val.value">Set Child Value</button>
+    <button (click)="startTimer()">Start Timer</button>
+    <button (click)="stopTimer()">Stop Timer</button>
+  </div>
   <p>Child value: {{ childValue }}</p>
-  <button (click)="startTimer()">Start Timer</button>
-  <button (click)="stopTimer()">Stop Timer</button>
   <p>Timer: {{ counter }}</p>
   <h4>Logs</h4>
-  <ul>
-    <li *ngFor="let log of logs">{{ log }}</li>
+  <ul class="logs">
+    <li *ngFor="let log of logs" [ngClass]="getLogClass(log)">{{ log }}</li>
   </ul>
 </div>
