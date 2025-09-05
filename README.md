@@ -15,6 +15,8 @@ This project includes a `LifecycleDemoComponent` and a nested `LifecycleChildCom
 - **AfterViewChecked** – executes after Angular checks the component's views and child views.
 - **OnDestroy** – invoked just before Angular destroys the component.
 
+For a quick reference, see the [Lifecycle Hooks Cheatsheet](LIFECYCLE_HOOKS_CHEATSHEET.md).
+
 ### Running the demo
 
 1. Start the development server:
