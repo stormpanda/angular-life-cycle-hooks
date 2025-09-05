@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { LifecycleChildComponent } from './child/child.component';
 
 @Component({
   selector: 'app-lifecycle-demo',
   standalone: true,
+  imports: [LifecycleChildComponent],
   templateUrl: './lifecycle-demo.component.html',
   styleUrl: './lifecycle-demo.component.scss'
 })
@@ -39,4 +41,3 @@ export class LifecycleDemoComponent implements OnChanges, OnInit, DoCheck, After
     console.log('LifecycleDemoComponent ngOnDestroy');
   }
 }
-
