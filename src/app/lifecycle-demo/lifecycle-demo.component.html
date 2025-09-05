@@ -1,2 +1,4 @@
 <p>lifecycle-demo works!</p>
-<app-child></app-child>
+<input #val />
+<button (click)="inputValue = val.value">Update Input</button>
+<app-child [inputValue]="inputValue"></app-child>
