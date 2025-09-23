@@ -1,0 +1,204 @@
+<div class="demo-container">
+  <div class="demo-header">
+    <h1>All Lifecycle Hooks Demo</h1>
+    <p>Watch all lifecycle hooks in action with real-time logging</p>
+    <div class="header-controls">
+      <button class="reset-btn" (click)="resetDemo()">Reset Demo</button>
+      <button class="trigger-btn" (click)="triggerChangeDetection()">
+        Trigger Change Detection
+      </button>
+    </div>
+  </div>
+
+  <div class="demo-content">
+    <div class="controls-section">
+      <div class="control-panel">
+        <h3>Parent Component Controls</h3>
+
+        <div class="control-group">
+          <label>Input Value (triggers ngOnChanges):</label>
+          <input
+            type="text"
+            [value]="inputValue"
+            (input)="updateInput($any($event.target).value)"
+            placeholder="Type to see ngOnChanges"
+          />
+        </div>
+
+        <div class="control-group">
+          <label
+            >Timer Counter:
+            <span class="counter-display">{{ counter }}</span></label
+          >
+          <small>Started in ngOnInit, cleaned up in ngOnDestroy</small>
+        </div>
+
+        <div class="control-group">
+          <label>Child Message:</label>
+          <input
+            type="text"
+            [value]="childData.message"
+            (input)="updateChildMessage($any($event.target).value)"
+            placeholder="Update child data"
+          />
+        </div>
+
+        <div class="control-group">
+          <label
+            >Child Count:
+            <span class="counter-display">{{ childData.count }}</span></label
+          >
+          <button (click)="incrementChildCount()" class="increment-btn">
+            Increment
+          </button>
+        </div>
+
+        <div class="control-group">
+          <label>Child Component:</label>
+          <button (click)="toggleChild()" class="toggle-btn">
+            {{ showChild ? "Hide Child" : "Show Child" }} (Test ngOnDestroy)
+          </button>
+        </div>
+      </div>
+
+      <div class="hook-status">
+        <h3>Lifecycle Hooks Status</h3>
+        <div class="hooks-grid">
+          <div class="hook-item completed">
+            <span class="hook-name">ngOnChanges</span>
+            <span class="hook-desc">Input changes</span>
+          </div>
+          <div class="hook-item completed">
+            <span class="hook-name">ngOnInit</span>
+            <span class="hook-desc">Component init</span>
+          </div>
+          <div class="hook-item active">
+            <span class="hook-name">ngDoCheck</span>
+            <span class="hook-desc">Every cycle</span>
+          </div>
+          <div class="hook-item completed">
+            <span class="hook-name">ngAfterContentInit</span>
+            <span class="hook-desc">Content projected</span>
+          </div>
+          <div class="hook-item active">
+            <span class="hook-name">ngAfterContentChecked</span>
+            <span class="hook-desc">Content checked</span>
+          </div>
+          <div class="hook-item completed">
+            <span class="hook-name">ngAfterViewInit</span>
+            <span class="hook-desc">View initialized</span>
+          </div>
+          <div class="hook-item active">
+            <span class="hook-name">ngAfterViewChecked</span>
+            <span class="hook-desc">View checked</span>
+          </div>
+          <div class="hook-item pending">
+            <span class="hook-name">ngOnDestroy</span>
+            <span class="hook-desc">On destruction</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="display-section">
+      <!-- ViewChild Demo -->
+      <div class="section">
+        <h3>ViewChild Element</h3>
+        <div #viewChildElement class="view-child-demo">
+          This element is accessed in ngAfterViewInit via @ViewChild
+        </div>
+      </div>
+
+      <!-- Child Component with Content Projection -->
+      <div class="section" *ngIf="showChild">
+        <h3>Child Component (All Hooks Active)</h3>
+        <app-lifecycle-child [data]="childData">
+          <!-- This content is projected into the child component -->
+          <div class="projected-content">
+            <h5>🎯 Projected Content</h5>
+            <p>
+              This content is projected into the child component and triggers
+              ngAfterContentInit/Checked hooks.
+            </p>
+            <p>
+              Input value from parent: <strong>{{ inputValue }}</strong>
+            </p>
+          </div>
+        </app-lifecycle-child>
+      </div>
+
+      <!-- Logs Section -->
+      <div class="logs-section">
+        <div class="logs-header">
+          <h3>Real-time Lifecycle Logs</h3>
+          <small>Showing the sequence and timing of lifecycle hooks</small>
+        </div>
+        <div class="logs-container">
+          <div
+            class="log-entry"
+            *ngFor="let log of logger.logs; trackBy: trackByTimestamp"
+            [class.parent-log]="log.component === 'AllHooksDemoComponent'"
+            [class.child-log]="log.component === 'LifecycleChildComponent'"
+          >
+            <div class="log-header">
+              <span
+                class="component-badge"
+                [class]="
+                  log.component === 'AllHooksDemoComponent' ? 'parent' : 'child'
+                "
+              >
+                {{
+                  log.component === "AllHooksDemoComponent" ? "Parent" : "Child"
+                }}
+              </span>
+              <span class="timestamp">{{
+                log.timestamp | date : "HH:mm:ss.SSS"
+              }}</span>
+            </div>
+            <div class="log-message">{{ log.message }}</div>
+            <div class="log-data" *ngIf="log.data">
+              <pre>{{ log.data | json }}</pre>
+            </div>
+          </div>
+          <div class="no-logs" *ngIf="logger.logs.length === 0">
+            Logs will appear here as lifecycle hooks are triggered...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="explanation">
+    <h3>What You're Seeing</h3>
+    <div class="explanation-grid">
+      <div class="explanation-item">
+        <h4>🔄 Frequent Hooks</h4>
+        <p>
+          ngDoCheck, ngAfterContentChecked, and ngAfterViewChecked run on every
+          change detection cycle. Notice how often they're called!
+        </p>
+      </div>
+      <div class="explanation-item">
+        <h4>🚀 Initialization Hooks</h4>
+        <p>
+          ngOnInit, ngAfterContentInit, and ngAfterViewInit run only once when
+          the component is first created.
+        </p>
+      </div>
+      <div class="explanation-item">
+        <h4>📥 Input Changes</h4>
+        <p>
+          ngOnChanges is triggered when @Input() properties change. Try
+          modifying the input values above.
+        </p>
+      </div>
+      <div class="explanation-item">
+        <h4>🧹 Cleanup</h4>
+        <p>
+          ngOnDestroy runs when the component is destroyed. Toggle the child
+          component visibility to see it in action.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

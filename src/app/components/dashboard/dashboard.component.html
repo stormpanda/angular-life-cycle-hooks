@@ -1,0 +1,72 @@
+<div class="dashboard">
+  <div class="hero">
+    <h1>Angular Lifecycle Hooks Interactive Demo</h1>
+    <p>
+      Explore each lifecycle hook with practical examples and real-time logging
+    </p>
+    <a routerLink="/all-hooks" class="cta-button">View All Hooks in Action</a>
+  </div>
+
+  <div class="hooks-grid">
+    <div
+      class="hook-card"
+      *ngFor="let hook of hooks"
+      [style.border-left-color]="hook.color"
+      [routerLink]="hook.route"
+    >
+      <div class="hook-header">
+        <h3>{{ hook.name }}</h3>
+        <span class="frequency-badge" [style.background-color]="hook.color">
+          {{ hook.frequency }}
+        </span>
+      </div>
+      <p>{{ hook.description }}</p>
+      <div class="hook-footer">
+        <span class="view-demo">View Demo →</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="execution-order">
+    <h2>Lifecycle Hook Execution Order</h2>
+    <div class="order-flow">
+      <div
+        class="order-item"
+        *ngFor="let hook of executionOrder; let i = index"
+        [class.destruction]="hook === 'ngOnDestroy'"
+      >
+        <span class="order-number">{{ i + 1 }}</span>
+        <span class="hook-name">{{ hook }}</span>
+        <div class="arrow" *ngIf="i < executionOrder.length - 1">→</div>
+      </div>
+    </div>
+    <p class="order-note">
+      * ngOnDestroy runs when the component is being destroyed, not in the
+      regular flow
+    </p>
+  </div>
+
+  <div class="info-cards">
+    <div class="info-card">
+      <h3>🔄 Frequent Hooks</h3>
+      <p>
+        ngDoCheck, ngAfterContentChecked, and ngAfterViewChecked run on every
+        change detection cycle. Use them carefully!
+      </p>
+    </div>
+    <div class="info-card">
+      <h3>🏁 One-time Hooks</h3>
+      <p>
+        ngOnInit, ngAfterContentInit, and ngAfterViewInit run only once per
+        component instance.
+      </p>
+    </div>
+    <div class="info-card">
+      <h3>🧹 Cleanup</h3>
+      <p>
+        Always use ngOnDestroy to unsubscribe from observables and clean up
+        resources to prevent memory leaks.
+      </p>
+    </div>
+  </div>
+</div>

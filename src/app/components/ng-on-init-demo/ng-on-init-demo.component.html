@@ -1,0 +1,152 @@
+<div class="demo-container">
+  <div class="demo-header">
+    <h1>ngOnInit Demo</h1>
+    <p>Demonstrates proper component initialization patterns</p>
+    <button class="reset-btn" (click)="resetDemo()">Reset Demo</button>
+  </div>
+
+  <div class="demo-content">
+    <div class="main-content">
+      <!-- Loading State -->
+      <div class="loading-section" *ngIf="isLoading">
+        <div class="loading-spinner"></div>
+        <p>Loading initial data... (Simulated API calls)</p>
+      </div>
+
+      <!-- Error State -->
+      <div class="error-section" *ngIf="error">
+        <div class="error-message">
+          <h3>❌ Error</h3>
+          <p>{{ error }}</p>
+          <button (click)="refreshData()">Retry</button>
+        </div>
+      </div>
+
+      <!-- Data Display -->
+      <div class="data-sections" *ngIf="!isLoading && !error">
+        <!-- Posts Section -->
+        <div class="section">
+          <div class="section-header">
+            <h3>📝 Posts ({{ posts.length }})</h3>
+            <button (click)="refreshData()" class="refresh-btn">Refresh</button>
+          </div>
+          <div class="posts-grid">
+            <div class="post-card" *ngFor="let post of posts">
+              <h4>{{ post.title }}</h4>
+              <p>{{ post.body }}</p>
+              <div class="post-meta">
+                <span>By: {{ getUserName(post.userId) }}</span>
+                <span>ID: {{ post.id }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Users Section -->
+        <div class="section">
+          <h3>👥 Users ({{ users.length }})</h3>
+          <div class="users-list">
+            <div class="user-item" *ngFor="let user of users">
+              <div class="user-avatar">{{ user.name.charAt(0) }}</div>
+              <div class="user-info">
+                <strong>{{ user.name }}</strong>
+                <span>{{ user.email }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="section">
+          <h3>📋 Initialized Form</h3>
+          <form class="demo-form" (ngSubmit)="submitForm()">
+            <div class="form-group">
+              <label>Name:</label>
+              <input type="text" [(ngModel)]="userForm.name" name="name" />
+            </div>
+            <div class="form-group">
+              <label>Email:</label>
+              <input type="email" [(ngModel)]="userForm.email" name="email" />
+            </div>
+            <div class="form-group">
+              <label>Message:</label>
+              <textarea
+                [(ngModel)]="userForm.message"
+                name="message"
+                rows="3"
+              ></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit">Submit</button>
+              <button type="button" (click)="resetForm()">Reset Form</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Timer Section -->
+        <div class="section">
+          <h3>⏱️ Timer (Started in ngOnInit)</h3>
+          <div class="timer-display">
+            <div class="timer-value">{{ counter }}</div>
+            <p>Seconds since component initialization</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Logs Section -->
+    <div class="logs-section">
+      <h3>Lifecycle Logs</h3>
+      <div class="logs-container">
+        <div
+          class="log-entry"
+          *ngFor="let log of logger.logs; trackBy: trackByTimestamp"
+        >
+          <div class="log-header">
+            <span class="component-name">{{ log.component }}</span>
+            <span class="timestamp">{{
+              log.timestamp | date : "HH:mm:ss.SSS"
+            }}</span>
+          </div>
+          <div class="log-message">{{ log.message }}</div>
+          <div class="log-data" *ngIf="log.data">
+            <pre>{{ log.data | json }}</pre>
+          </div>
+        </div>
+        <div class="no-logs" *ngIf="logger.logs.length === 0">
+          No logs yet. The component will start logging when initialized.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="explanation">
+    <h3>Key Points About ngOnInit</h3>
+    <ul>
+      <li>
+        <strong>When it runs:</strong> Once after the first ngOnChanges (if any
+        inputs exist)
+      </li>
+      <li>
+        <strong>Perfect for:</strong> HTTP requests, subscriptions, complex
+        object initialization
+      </li>
+      <li>
+        <strong>Why not constructor:</strong> Component inputs aren't available
+        yet in constructor
+      </li>
+      <li>
+        <strong>Timing:</strong> Component is fully initialized but view isn't
+        rendered yet
+      </li>
+      <li>
+        <strong>Best practices:</strong> Keep constructor light, do heavy
+        lifting in ngOnInit
+      </li>
+      <li>
+        <strong>Cleanup:</strong> Remember to unsubscribe in ngOnDestroy to
+        prevent memory leaks
+      </li>
+    </ul>
+  </div>
+</div>

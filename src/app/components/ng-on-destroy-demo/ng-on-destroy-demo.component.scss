@@ -1,0 +1,469 @@
+.demo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.demo-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
+
+  p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .reset-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: #c0392b;
+    }
+  }
+}
+
+.demo-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.subscriptions-section,
+.intervals-section,
+.child-components-section {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    margin: 0 0 1rem 0;
+    color: #2c3e50;
+    font-size: 1.2rem;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.subscription-item,
+.interval-item {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid #3498db;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .subscription-info,
+  .interval-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    strong {
+      color: #2c3e50;
+    }
+
+    .status {
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: #95a5a6;
+      color: white;
+
+      &.active {
+        background: #2ecc71;
+      }
+    }
+  }
+
+  .subscription-controls,
+  .interval-controls {
+    display: flex;
+    gap: 0.5rem;
+
+    button {
+      flex: 1;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+
+      &:not(:disabled) {
+        background: #3498db;
+        color: white;
+
+        &:hover {
+          background: #2980b9;
+        }
+      }
+
+      &:disabled {
+        background: #bdc3c7;
+        color: #7f8c8d;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+.timeout-section {
+  margin-top: 1rem;
+
+  h3 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    color: #e67e22;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+
+    &:not(:disabled) {
+      background: #e67e22;
+      color: white;
+
+      &:hover {
+        background: #d35400;
+      }
+    }
+
+    &:disabled {
+      background: #bdc3c7;
+      color: #7f8c8d;
+      cursor: not-allowed;
+    }
+  }
+
+  .timeout-list {
+    margin-top: 1rem;
+  }
+
+  .timeout-item {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 6px;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #8e44ad;
+    font-size: 0.9rem;
+  }
+}
+
+.child-components-section {
+  .child-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+
+    button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+
+      &:not(:disabled) {
+        background: #9b59b6;
+        color: white;
+
+        &:hover {
+          background: #8e44ad;
+        }
+      }
+
+      &:disabled {
+        background: #bdc3c7;
+        color: #7f8c8d;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .child-list {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .child-component {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+
+    .child-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+
+      h4 {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      button {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: none;
+        padding: 0.25rem 0.75rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+
+    p {
+      margin: 0.25rem 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+  }
+}
+
+.memory-info {
+  grid-column: 1 / -1;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+
+  h3 {
+    margin: 0 0 1rem 0;
+    color: #2c3e50;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .resource-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #e74c3c;
+
+    .resource-label {
+      font-weight: 500;
+      color: #2c3e50;
+    }
+
+    .resource-value {
+      background: #e74c3c;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.logs-section {
+  grid-column: 1 / -1;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+
+  h3 {
+    margin: 0 0 1rem 0;
+    color: #2c3e50;
+    font-size: 1.2rem;
+  }
+
+  .logs-container {
+    background: #2c3e50;
+    border-radius: 8px;
+    padding: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .log-entry {
+    background: #34495e;
+    border-radius: 6px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-left: 4px solid #e74c3c;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .component-name {
+    background: #e74c3c;
+    color: white;
+    font-weight: bold;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+
+  .timestamp {
+    color: #bdc3c7;
+    font-family: monospace;
+    font-size: 0.8rem;
+  }
+
+  .log-message {
+    color: #ecf0f1;
+    font-size: 0.9rem;
+  }
+
+  .no-logs {
+    color: #bdc3c7;
+    text-align: center;
+    font-style: italic;
+    padding: 2rem;
+  }
+}
+
+.explanation {
+  grid-column: 1 / -1;
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    margin: 0 0 1.5rem 0;
+    color: #2c3e50;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .best-practices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .practice-item {
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid;
+
+    &.danger {
+      background: #fadbd8;
+      border-left-color: #e74c3c;
+
+      h4 {
+        color: #c0392b;
+      }
+    }
+
+    &.success {
+      background: #d5f4e6;
+      border-left-color: #2ecc71;
+
+      h4 {
+        color: #27ae60;
+      }
+    }
+
+    h4 {
+      margin: 0 0 1rem 0;
+      font-size: 1.1rem;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.5rem;
+      color: #2c3e50;
+      line-height: 1.6;
+
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .demo-content {
+    grid-template-columns: 1fr;
+  }
+
+  .child-controls,
+  .subscription-controls,
+  .interval-controls {
+    flex-direction: column;
+  }
+
+  .subscription-info,
+  .interval-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .logs-container {
+    max-height: 300px;
+  }
+}

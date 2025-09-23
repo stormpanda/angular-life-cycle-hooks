@@ -1,7 +1,34 @@
-<header>
-  <h1>Angular Lifecycle Hooks</h1>
-  <nav>
-    <a routerLink="/lifecycle-demo">Lifecycle Demo</a>
-  </nav>
-</header>
-<router-outlet></router-outlet>
+<div class="app-container">
+  <header class="app-header">
+    <h1>Angular Lifecycle Hooks Demo</h1>
+    <nav class="main-nav">
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <div class="nav-group">
+        <span class="nav-group-title">Lifecycle Hooks</span>
+        <a routerLink="/ngonchanges" routerLinkActive="active">ngOnChanges</a>
+        <a routerLink="/nginit" routerLinkActive="active">ngOnInit</a>
+        <a routerLink="/ngdocheck" routerLinkActive="active">ngDoCheck</a>
+        <a routerLink="/ngaftercontentinit" routerLinkActive="active"
+          >ngAfterContentInit</a
+        >
+        <a routerLink="/ngaftercontentchecked" routerLinkActive="active"
+          >ngAfterContentChecked</a
+        >
+        <a routerLink="/ngafterviewinit" routerLinkActive="active"
+          >ngAfterViewInit</a
+        >
+        <a routerLink="/ngafterviewchecked" routerLinkActive="active"
+          >ngAfterViewChecked</a
+        >
+        <a routerLink="/ngondestroy" routerLinkActive="active">ngOnDestroy</a>
+      </div>
+      <a routerLink="/all-hooks" routerLinkActive="active" class="special"
+        >All Hooks</a
+      >
+    </nav>
+  </header>
+
+  <main class="app-main">
+    <router-outlet></router-outlet>
+  </main>
+</div>

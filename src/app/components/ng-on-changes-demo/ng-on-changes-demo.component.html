@@ -1,0 +1,146 @@
+<div class="demo-container">
+  <div class="demo-header">
+    <h1>ngOnChanges Demo</h1>
+    <p>Demonstrates how ngOnChanges detects input property changes</p>
+    <button class="reset-btn" (click)="resetDemo()">Reset Demo</button>
+  </div>
+
+  <div class="demo-content">
+    <div class="controls-section">
+      <div class="control-group">
+        <h3>Select User</h3>
+        <div class="user-buttons">
+          <button
+            *ngFor="let user of users"
+            [class.active]="selectedUser.id === user.id"
+            (click)="selectUser(user)"
+          >
+            {{ user.name }}
+          </button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <h3>Modify User Properties</h3>
+        <div class="input-group">
+          <label>Name:</label>
+          <input
+            type="text"
+            [value]="selectedUser.name"
+            (input)="updateUserName($any($event.target).value)"
+            placeholder="Enter name"
+          />
+        </div>
+        <div class="input-group">
+          <label>Email:</label>
+          <input
+            type="email"
+            [value]="selectedUser.email"
+            (input)="updateUserEmail($any($event.target).value)"
+            placeholder="Enter email"
+          />
+        </div>
+        <div class="input-group">
+          <label>Role:</label>
+          <select
+            [value]="selectedUser.role"
+            (change)="updateUserRole($any($event.target).value)"
+          >
+            <option value="Developer">Developer</option>
+            <option value="Designer">Designer</option>
+            <option value="Manager">Manager</option>
+            <option value="Tester">Tester</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <h3>Other Controls</h3>
+        <div class="input-group">
+          <label>Input Value:</label>
+          <input
+            type="text"
+            [(ngModel)]="inputValue"
+            placeholder="Type something"
+          />
+        </div>
+        <div class="input-group">
+          <label>Counter:</label>
+          <div class="counter-controls">
+            <span class="counter-value">{{ counter }}</span>
+            <button (click)="incrementCounter()">Increment</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="display-section">
+      <div class="component-demo">
+        <h3>Child Component (UserProfile)</h3>
+        <p class="info-text">
+          The UserProfile component receives the selectedUser as an @Input().
+          Watch how ngOnChanges is triggered when you modify the user data.
+        </p>
+        <app-user-profile [user]="selectedUser"></app-user-profile>
+      </div>
+
+      <div class="logs-section">
+        <h3>Lifecycle Logs</h3>
+        <div class="logs-container">
+          <div
+            class="log-entry"
+            *ngFor="let log of logger.logs; trackBy: trackByTimestamp"
+            [class.highlight]="log.component === 'UserProfileComponent'"
+          >
+            <div class="log-header">
+              <span
+                class="component-name"
+                [class]="
+                  log.component === 'UserProfileComponent' ? 'child' : 'parent'
+                "
+              >
+                {{ log.component }}
+              </span>
+              <span class="timestamp">{{
+                log.timestamp | date : "HH:mm:ss.SSS"
+              }}</span>
+            </div>
+            <div class="log-message">{{ log.message }}</div>
+            <div class="log-data" *ngIf="log.data">
+              <pre>{{ log.data | json }}</pre>
+            </div>
+          </div>
+          <div class="no-logs" *ngIf="logger.logs.length === 0">
+            No logs yet. Start interacting with the controls above.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="explanation">
+    <h3>Key Points About ngOnChanges</h3>
+    <ul>
+      <li>
+        <strong>When it runs:</strong> Called whenever one or more @Input()
+        properties change
+      </li>
+      <li>
+        <strong>First change:</strong> The firstChange flag indicates if this is
+        the initial value
+      </li>
+      <li>
+        <strong>Change detection:</strong> Only detects changes in object
+        references, not deep property changes
+      </li>
+      <li>
+        <strong>SimpleChanges:</strong> Provides currentValue, previousValue,
+        and firstChange for each changed property
+      </li>
+      <li>
+        <strong>Use cases:</strong> Input validation, derived property
+        calculation, side effects on input changes
+      </li>
+    </ul>
+  </div>
+</div>
