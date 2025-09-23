@@ -120,6 +120,28 @@ ngAfterContentInit() {
 }
 ```
 
+**HTML Template:**
+
+```html
+<!-- Parent component template -->
+<app-card>
+  <div class="header" #projectedTemplate>
+    <h2>Projected Header Content</h2>
+  </div>
+  <p>This content is projected into the card component</p>
+</app-card>
+
+<!-- Card component template -->
+<div class="card">
+  <div class="card-header">
+    <ng-content select=".header"></ng-content>
+  </div>
+  <div class="card-body">
+    <ng-content></ng-content>
+  </div>
+</div>
+```
+
 ---
 
 ## ngAfterContentChecked
@@ -148,6 +170,23 @@ ngAfterContentChecked() {
     this.previousContentCount = this.contentChildren.length;
   }
 }
+```
+
+**HTML Template:**
+
+```html
+<!-- Dynamic content projection example -->
+<app-dynamic-list>
+  <div *ngFor="let item of items; trackBy: trackByFn" class="list-item">{{ item.name }}</div>
+</app-dynamic-list>
+
+<!-- Dynamic list component template -->
+<div class="list-container">
+  <div class="list-header">Items: {{ contentChildren.length }}</div>
+  <div class="list-content">
+    <ng-content></ng-content>
+  </div>
+</div>
 ```
 
 ---
@@ -181,6 +220,33 @@ ngAfterViewInit() {
 }
 ```
 
+**HTML Template:**
+
+```html
+<!-- Component template with ViewChild references -->
+<div class="chart-container">
+  <canvas #canvas width="400" height="300"></canvas>
+  <button #refreshBtn (click)="refreshChart()">Refresh Chart</button>
+</div>
+
+<div class="data-table" #dataTable>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of chartData">
+        <td>{{ item.name }}</td>
+        <td>{{ item.value }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
 ---
 
 ## ngAfterViewChecked
@@ -209,6 +275,25 @@ ngAfterViewChecked() {
     this.lastScrollHeight = this.elementRef.nativeElement.scrollHeight;
   }
 }
+```
+
+**HTML Template:**
+
+```html
+<!-- Auto-scrolling chat component -->
+<div class="chat-container" #chatContainer>
+  <div class="messages" #messagesList>
+    <div *ngFor="let message of messages" class="message">
+      <span class="timestamp">{{ message.timestamp | date:'short' }}</span>
+      <span class="content">{{ message.content }}</span>
+    </div>
+  </div>
+
+  <div class="input-area">
+    <input #messageInput [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type a message..." />
+    <button (click)="sendMessage()">Send</button>
+  </div>
+</div>
 ```
 
 ---
